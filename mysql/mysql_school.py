@@ -9,7 +9,7 @@ conn1 = pymysql.connect(host="192.168.1.176",port=3002, user="root",password="i2
 cursor1 = conn1.cursor()
 
 #连接tongyideu
-conn2 = pymysql.connect(host="192.168.1.176",port=3002, user="root",password="i226CtSmDMn71dlyIqdZ0pI",database="tongyiedu",charset="utf8")
+conn2 = pymysql.connect(host="192.168.1.176",port=3008, user="root",password="i226CtSmDMn71dlyIqdZ0pI",database="tongyiedu",charset="utf8")
 cursor2 = conn2.cursor()
 
 #连接vsdeu
@@ -17,10 +17,16 @@ conn3 = pymysql.connect(host="192.168.1.176",port=3002, user="root",password="i2
 cursor3 = conn3.cursor()
 
 #查询所有学校
-schoolTotalSql = "select id,school_name,city_code,school_address,lat,lng,stage_tag,create_user,create_time from yxy_school_tb where id not in (2,57) and del = 1 and id > 1"
+schoolTotalSql = "select id,school_name,city_code,school_address,lat,lng,stage_tag,create_user,create_time from yxy_school_tb where id not in (2,57) and del = 1"
 cursor.execute(schoolTotalSql)
 alldata = cursor.fetchall()
 
+# alldatas = {'0'}
+#
+# for x in alldata:
+#     alldatas.add(x)
+# print(alldatas)
+# exit()
 #循环
 for data in alldata:
     # print(data)
@@ -94,12 +100,12 @@ for data in alldata:
         creator = ""
 
     # #学校存入数据库
-    # schoolSql = "insert into tifen_school values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    # cursor2.execute(schoolSql,(str(school_id),str(manager_id),str(type_id),str(name),str(citycode),str(address),str(lat),str(lng),str(plates_id),str(balance),str(points),str(modules),str(remark),str(creator),str(create_time),str(is_del),str(teacher_limit),str(student_limit),str(duoke_limit)))
-    # conn2.commit()
+    schoolSql = "insert into tifen_school values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    cursor2.execute(schoolSql,(str(school_id),str(manager_id),str(type_id),str(name),str(citycode),str(address),str(lat),str(lng),str(plates_id),str(balance),str(points),str(modules),str(remark),str(creator),str(create_time),str(is_del),str(teacher_limit),str(student_limit),str(duoke_limit)))
+    conn2.commit()
 
-    #按学校查找班级
-    classSql = "select id,categories_id,classname,UNIX_TIMESTAMP(create_time) from yxy_school_class_tb where school_id = %s and categories_id <> 0 and id >3"
+    #按学校查找班级  未加 作业群
+    classSql = "select id,categories_id,classname,UNIX_TIMESTAMP(create_time) from yxy_school_class_tb where school_id = %s and categories_id <> 0"
     cursor.execute(classSql,str(school_id))
     classAllData = cursor.fetchall()
 
@@ -141,7 +147,7 @@ for data in alldata:
         join_able = 0
         print(class_id,school_id,manager_id,name,plate_id,create_time,graduation_year)
 
-        班级存入数据库
+        #班级存入数据库
         classSql = "insert into tifen_school_class values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         cursor2.execute(classSql,(str(class_id),str(manager_id),str(school_id),str(plate_id),str(graduation_year),str(name),str(is_ban),str(is_del),str(create_time),str(last_msg),str(last_msg_time),str(join_able)))
         conn2.commit()

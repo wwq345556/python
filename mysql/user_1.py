@@ -21,7 +21,7 @@ conn4 = pymysql.connect(host="192.168.1.176",port=3001, user="root",password="i2
 cursor4 = conn4.cursor()
 
 #查询所有人数据
-userIdSql = "select user_id,sign_times,sign_serial_days,sign_day,sign_time,from_unixtime(create_time) from user_basic"
+userIdSql = "select user_id,sign_times,sign_serial_days,sign_day,sign_time,from_unixtime(create_time),point_total,point_balance from user_basic"
 cursor.execute(userIdSql)
 alldata = cursor.fetchall()
 
@@ -49,6 +49,8 @@ for data in alldata:
         member_pwd = vsedu[1]
         realname = vsedu[2]
         create_time = vsedu[3]
+        credits_total = int(data[6])
+        credits_balance = int(data[7])
         if int(vsedu[4]) == 1:
             disabled = 0
         else:
@@ -150,9 +152,9 @@ for data in alldata:
             subjects = 0
 
         #插入数据库
-        userSql = "insert into tifen_user values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        userSql = "insert into tifen_user values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         #print((str(id),str(school_id),str(member_id),str(nickname),str(realname),str(member_pwd),str(sex),str(is_teacher),str(subjects),str(plate_id),str(photo),str(phone_no),str(phone_bind),str(disabled),str(source_id),str(create_time)))
-        cursor1.execute(userSql,(str(id),str(school_id),str(member_id),str(nickname),str(realname),str(member_pwd),str(sex),str(is_teacher),str(subjects),str(plate_id),str(photo),str(phone_no),str(phone_bind),str(disabled),str(source_id),str(create_time)))
+        cursor1.execute(userSql,(str(id),str(school_id),str(member_id),str(nickname),str(realname),str(member_pwd),str(sex),str(credits_total),str(credits_balance),str(is_teacher),str(subjects),str(plate_id),str('0'),str(photo),str(phone_no),str(phone_bind),str(disabled),str(source_id),str(create_time)))
         conn1.commit()
     except:
         continue

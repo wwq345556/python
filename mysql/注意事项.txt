@@ -1,9 +1,11 @@
 1.answer [] update `tifen_question_6` set answer = CONCAT('[',answer,']')
-
-3.t_knowledge_new_wwqcopy mysql_6.py yxy_education t_knowledge_new
-4.t_chaper_new =>teach_textbook_chapter
+2.t_knowledge_new_wwqcopy mysql_6.py yxy_education t_knowledge_new
+3.t_chaper_new =>teach_textbook_chapter
 t_chaper=>tifen_textbook_chapter
 mysql_2_2.py
-5.t_question_id
+4.t_question_id
 UPDATE tifen_question_id SET table_name =CONCAT('tifen_question_',subject_id)
-6.update  `tifen_user` set realname = "" where realname="None"
+5.update  `tifen_user` set realname = "" where realname="None"
+6.update `tifen_file_detail` set qcid = '' where qcid='None';
+7.update `tifen_file_detail` set type = 1
+8.update tifen_course set cover_url = '' where cover_url='None';

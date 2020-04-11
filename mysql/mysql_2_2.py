@@ -17,7 +17,8 @@ cn.pid,
 chapter_name,
 alias_name,
 edition_id,
-grade_id 
+grade_id,
+sort_id 
 FROM
 	t_chapter_new cn
 HAVING book_id is not null    
@@ -40,23 +41,23 @@ cursor3 = conn3.cursor()
 
 for data in alldata:
     print(data)
-    sql = "insert into teach_textbook_chapter values(%s,%s,%s,%s,%s,%s,0,0,0,0,0,0)"
+    sql = "insert into teach_textbook_chapter values(%s,%s,%s,%s,%s,%s,%s,0,0,0,0,0)"
     # print(sql)
    
     if int(data[7]) in primary:
 
-        cursor1.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5])))
+        cursor1.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5]),str(data[6])))
         conn1.commit()
 
     if int(data[7]) in junior:
 
-        cursor2.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5])))
+        cursor2.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5]),str(data[6])))
 
         conn2.commit()
 
     if int(data[7]) in senior:
 
-        cursor3.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5])))
+        cursor3.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5]),str(data[6])))
         conn3.commit()
                    
     
