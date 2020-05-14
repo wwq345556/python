@@ -28,36 +28,36 @@ cursor.execute(sql)
 alldata = cursor.fetchall()
 
 #连接小学库
-conn1 = pymysql.connect(host="192.168.1.176",port=3002, user="root",password="i226CtSmDMn71dlyIqdZ0pI",database="tyeducation_primary",charset="utf8")
+conn1 = pymysql.connect(host="192.168.1.176",port=3008, user="root",password="i226CtSmDMn71dlyIqdZ0pI",database="tyeducation_primary",charset="utf8")
 cursor1 = conn1.cursor()
 #连接初中库
-conn2 = pymysql.connect(host="192.168.1.176",port=3002, user="root",password="i226CtSmDMn71dlyIqdZ0pI",database="tyeducation_junior",charset="utf8")
+conn2 = pymysql.connect(host="192.168.1.176",port=3008, user="root",password="i226CtSmDMn71dlyIqdZ0pI",database="tyeducation_junior",charset="utf8")
 cursor2 = conn2.cursor()
 #连接高中库
-conn3 = pymysql.connect(host="192.168.1.176",port=3002, user="root",password="i226CtSmDMn71dlyIqdZ0pI",database="tyeducation_senior",charset="utf8")
+conn3 = pymysql.connect(host="192.168.1.176",port=3008, user="root",password="i226CtSmDMn71dlyIqdZ0pI",database="tyeducation_senior",charset="utf8")
 cursor3 = conn3.cursor()
 
 
 
 for data in alldata:
     print(data)
-    sql = "insert into teach_textbook_chapter values(%s,%s,%s,%s,%s,%s,%s,0,0,0,0,0)"
+    sql = "insert into tifen_textbook_chapter values(%s,%s,%s,%s,%s,%s,%s,0,0,0,0,0)"
     # print(sql)
    
     if int(data[7]) in primary:
 
-        cursor1.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5]),str(data[6])))
+        cursor1.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5]),str(data[8])))
         conn1.commit()
 
     if int(data[7]) in junior:
 
-        cursor2.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5]),str(data[6])))
+        cursor2.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5]),str(data[8])))
 
         conn2.commit()
 
     if int(data[7]) in senior:
 
-        cursor3.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5]),str(data[6])))
+        cursor3.execute(sql,(str(data[0]),str(data[1]),str(data[2]),str(data[3]),str(data[4]),str(data[5]),str(data[8])))
         conn3.commit()
                    
     

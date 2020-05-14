@@ -12,7 +12,7 @@ conn = pymysql.connect(host="192.168.1.176",port=3003, user="root",password="i22
 cursor = conn.cursor()
 
 sql = """
-select id,parent_id,knowledge_num,type_id,mode_id,difficulty,grade_id,subject_id,edition_id,source_name,score,audio_url,question,`options`,answer,solution,analysis,`comment`,video_num,quote_num,state,0 as sort_id,category_id,is_objective,is_read,plate_id from t_question_1;
+select id,parent_id,knowledge_num,type_id,mode_id,difficulty,grade_id,subject_id,edition_id,source_name,score,audio_url,question,`options`,answer,solution,analysis,`comment`,video_num,quote_num,state,0 as sort_id,category_id,is_objective,is_read,plate_id from t_question_1 where plate_id = 0 and grade_id = 0;
 """
 
 cursor.execute(sql)
@@ -32,6 +32,10 @@ cursor3 = conn3.cursor()
 # print(alldata)
 for data in alldata:
     try:
+        parentSql = "select plate_id,grade_id from t_question_1 where id = %s"
+        cursor.execute(parentSql, str(data[1]))
+        parentData = cursor.fetchone()
+        print(parentData)
         print(data)
         id = data[0]
         # company_id = 0
@@ -42,7 +46,7 @@ for data in alldata:
         is_objective = data[23]
         env_id = data[22]
         difficulty = data[5]
-        grade_id = data[6]
+        grade_id = parentData[1]
         subject_id = data[7]
         edition_id = data[8]
         source_name= data[9]
@@ -107,7 +111,7 @@ for data in alldata:
         # answer = '[' + str(data[15]) + ']'
 
         # print(optionList)
-        if data[6] in primary or data[25] == 1:
+        if int(parentData[1]) in primary or int(parentData[0]) == 1:
 
 
             cursor1.execute(sql,(str(id),str(parent_id),str(knowledge_num),str(type_id),str(mode_id),str(is_objective),str(env_id),str(difficulty),str(grade_id),str(subject_id),str(edition_id),str(source_name),str(score),str(audio_url),str(contents),str(optionList),str(answer),str(solution),str(analysis),str(comment),str(video_num),str(hits),str(is_read),str(state),str(sort_id)))
@@ -115,7 +119,7 @@ for data in alldata:
             cursor1.execute(id_sql,(str(qusetion_data[0]),str(qusetion_data[1]),str(qusetion_data[2]),str(qusetion_data[3]),str(qusetion_data[4]),str(qusetion_data[5])))
             conn1.commit()
         
-        if data[6] in junior or data[25] == 20:
+        if int(parentData[1]) in junior or int(parentData[0]) == 20:
         
 
             cursor2.execute(sql,(str(id),str(parent_id),str(knowledge_num),str(type_id),str(mode_id),str(is_objective),str(env_id),str(difficulty),str(grade_id),str(subject_id),str(edition_id),str(source_name),str(score),str(audio_url),str(contents),str(optionList),str(answer),str(solution),str(analysis),str(comment),str(video_num),str(hits),str(is_read),str(state),str(sort_id)))
@@ -124,7 +128,7 @@ for data in alldata:
             cursor2.execute(id_sql,(str(qusetion_data[0]),str(qusetion_data[1]),str(qusetion_data[2]),str(qusetion_data[3]),str(qusetion_data[4]),str(qusetion_data[5])))
             conn2.commit()
         
-        if data[6] in senior or data[25] == 33:
+        if int(parentData[1]) in senior or int(parentData[0]) == 33:
 
             cursor3.execute(sql,(str(id),str(parent_id),str(knowledge_num),str(type_id),str(mode_id),str(is_objective),str(env_id),str(difficulty),str(grade_id),str(subject_id),str(edition_id),str(source_name),str(score),str(audio_url),str(contents),str(optionList),str(answer),str(solution),str(analysis),str(comment),str(video_num),str(hits),str(is_read),str(state),str(sort_id)))
             conn3.commit()

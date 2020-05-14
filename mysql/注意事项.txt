@@ -5,7 +5,11 @@ t_chaper=>tifen_textbook_chapter
 mysql_2_2.py
 4.t_question_id
 UPDATE tifen_question_id SET table_name =CONCAT('tifen_question_',subject_id)
+UPDATE tifen_question_id SET table_name = 'tifen_question_1' where table_name = 't_question_1'
 5.update  `tifen_user` set realname = "" where realname="None"
 6.update `tifen_file_detail` set qcid = '' where qcid='None';
 7.update `tifen_file_detail` set type = 1
 8.update tifen_course set cover_url = '' where cover_url='None';
+9.course_4.py 不需要运行
+10. 小题subject_id = 0
+update tifen_question_3 set subject_id = 3 where subject_id = 0;
