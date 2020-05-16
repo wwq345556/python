@@ -43,19 +43,20 @@ for knowledgeBook in knowledgeBookData:
         creator = 1
         create_time = knowledgeBook[6]
         is_review = 0
+        display = 1
         print(id,pid,subject_id,is_folder,difficulty,sort_id,create_time)
         #分库
-        knowledgeBookDataInsertSql = "insert into tifen_knowledge values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        knowledgeBookDataInsertSql = "insert into tifen_knowledge values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         if int(knowledgeBook[2]) == 1:
-            cursor1.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(creator),str(create_time),str(is_review)))
+            cursor1.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(display),str(creator),str(create_time),str(is_review)))
             conn1.commit()
 
         if int(knowledgeBook[2]) == 20:
-            cursor2.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(creator),str(create_time),str(is_review)))
+            cursor2.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(display),str(creator),str(create_time),str(is_review)))
             conn2.commit()
 
         if int(knowledgeBook[2]) == 33:
-            cursor3.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(creator),str(create_time),str(is_review)))
+            cursor3.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(display),str(creator),str(create_time),str(is_review)))
             conn3.commit()
 
         if knowledgeBook[7]:
@@ -87,15 +88,15 @@ for knowledgeBook in knowledgeBookData:
                     #分库
                     knowledgeBookDataInsertSql = "insert into tifen_knowledge values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
                     if int(knowledgeBook[2]) == 1:
-                        cursor1.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(creator),str(create_time),str(is_review)))
+                        cursor1.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(display),str(creator),str(create_time),str(is_review)))
                         conn1.commit()
 
                     if int(knowledgeBook[2]) == 20:
-                        cursor2.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(creator),str(create_time),str(is_review)))
+                        cursor2.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(display),str(creator),str(create_time),str(is_review)))
                         conn2.commit()
 
                     if int(knowledgeBook[2]) == 33:
-                        cursor3.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(creator),str(create_time),str(is_review)))
+                        cursor3.execute(knowledgeBookDataInsertSql,(str(id),str(pid),str(full_id),str(subject_id),str(is_folder),str(name),str(difficulty),str(video_num),str(question_num),str(chapter_num),str(sort_id),str(is_del),str(display),str(creator),str(create_time),str(is_review)))
                         conn3.commit()
     except:
         clean.add(id)
